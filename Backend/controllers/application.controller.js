@@ -116,46 +116,6 @@ export const getAppliedJobs = async (req, res) => {
 };
 
 // To find Applicants by admin
-// export const getApplicants = async (req, res) => {
-//   try {
-//     // to get id of Job
-//     const jobId = req.params.id;
-
-//     // to check total user applied for same job
-//     const job = await Job.findById(jobId).populate({
-//       path: "application",
-//       options: { sort: { createdAt: -1 } },
-
-//       // Nested Populate
-//       populate: {
-//         path: "applicant",
-//       },
-//     });
-
-//     // If job is not found
-//     if (!job) {
-//       return res.status(404).json({
-//         message: "Job is not found......",
-//         success: false,
-//       });
-//     }
-
-//     // If job is found
-//     return res.status(200).json({
-//       message: "Job has been founded",
-//       job,
-//       success: true,
-//     });
-//   } catch (error) {
-//     console.log(error);
-
-//     return res.status(500).json({
-//       message: "An error occurred while reviewing user details.",
-//       success: false,
-//     });
-//   }
-// };
-
 export const getApplicants = async (req, res) => {
   try {
     // Get the Job ID from the request parameters
