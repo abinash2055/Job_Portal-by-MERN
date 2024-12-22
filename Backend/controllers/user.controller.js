@@ -6,7 +6,6 @@ import jwt from "jsonwebtoken";
 export const register = async (req, res) => {
   // Taking data from User
   try {
-    console.log("I am in backend");
     const { fullname, email, phoneNumber, password, role } = req.body;
     console.log(fullname, email, phoneNumber, password, role);
 
@@ -38,7 +37,6 @@ export const register = async (req, res) => {
       role,
     });
 
-    console.log("User created wohhoo");
     return res.status(201).json({
       message: "Account created successfully..",
       success: true,
