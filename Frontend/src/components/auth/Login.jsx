@@ -40,6 +40,7 @@ const Login = () => {
       });
 
       // For messages
+      console.log(res.data.success);
       if (res.data.success) {
         navigate("/");
         toast.success(res.data.message);
@@ -58,10 +59,10 @@ const Login = () => {
           onSubmit={submitHandler}
           className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
         >
-          <h1 className="font-bold text-xl mb-5">Login In</h1>
+          <h1 className="font-bold text-xl mb-5 text-center">Login </h1>
 
           {/* for email */}
-          <div className="my-2">
+          <div className="my-2 ">
             <Label>Email ID</Label>
             <Input
               type="email"
@@ -73,7 +74,7 @@ const Login = () => {
           </div>
 
           {/* for password */}
-          <div className="my-2">
+          <div className="my-2 ">
             <Label>Password</Label>
             <Input
               type="password"
@@ -87,8 +88,8 @@ const Login = () => {
           {/* To choose Student or Recruiter */}
           <div className="flex items-center justify-between">
             {/* For Student */}
-            <RadioGroup className="flex items-center gap-4 my-5">
-              <div className="flex items-center space-x-2">
+            <RadioGroup className="flex items-center gap-4 my-5 font-bold">
+              <div className="flex items-center space-x-2 text-md italic">
                 <Input
                   type="radio"
                   name="role"
@@ -101,7 +102,7 @@ const Login = () => {
               </div>
 
               {/* For Recruiter */}
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 text-md italic">
                 <Input
                   type="radio"
                   name="role"
@@ -116,12 +117,15 @@ const Login = () => {
           </div>
 
           {/* For Sign Up button */}
-          <Button type="submit" className="w-full my-4">
-            Sign In
+          <Button
+            type="submit"
+            className="w-full my-4 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 transition font-bold text-xl "
+          >
+            Login
           </Button>
-          <span className="text-sm">
+          <span className="text-center mt-4 ">
             Do not have an account?{" "}
-            <Link to="/signup" className="text-purple-600">
+            <Link to="/signup" className="text-purple-600 hover:underline">
               Sign Up
             </Link>
           </span>
