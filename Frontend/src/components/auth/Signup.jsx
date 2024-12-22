@@ -7,6 +7,9 @@ import { USER_API_END_POINT } from "../../utils/constant";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import Navbar from "../shared/Navbar";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -18,6 +21,8 @@ const Signup = () => {
     file: "",
   });
 
+  const { loading } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const changeEventHandler = (e) => {
@@ -56,8 +61,7 @@ const Signup = () => {
     }
 
     try {
-      console.log("Submitting data:", formData);
-
+      dispatch(setLoading(true));
       // Post the form data to the server
       const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
         headers: {
@@ -65,9 +69,6 @@ const Signup = () => {
         },
         withCredentials: true, // Include credentials (cookies, etc.)
       });
-
-      // Log API response for debugging
-      console.log("API Response:", res);
 
       if (res?.data?.success) {
         toast.success(res.data.message); // Success message
@@ -90,6 +91,8 @@ const Signup = () => {
       } else {
         toast.error("An unexpected error occurred. Please try again.");
       }
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -240,12 +243,19 @@ const Signup = () => {
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full py-3 bg-purple-600 text-white font-semibold text-lg rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-700 transition duration-200"
-          >
-            Register Now
-          </button>
+          {loading ? (
+            <Button className="w-full bg-blue-500 text-white py-3 rounded-lg shadow-md">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please Wait a moment...
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              className="w-full py-3 bg-purple-600 text-white font-semibold text-lg rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-700 transition duration-200"
+            >
+              Register Now
+            </Button>
+          )}
 
           {/* Divider */}
           <div className="flex items-center my-6">

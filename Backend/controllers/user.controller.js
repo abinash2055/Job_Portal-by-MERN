@@ -7,7 +7,6 @@ export const register = async (req, res) => {
   // Taking data from User
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
-    console.log(fullname, email, phoneNumber, password, role);
 
     // To check all data entered or not
     if (!fullname || !email || !phoneNumber || !password || !role) {

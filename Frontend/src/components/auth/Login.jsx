@@ -7,8 +7,10 @@ import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "../../utils/constant";
-// import { toast } from "./components/ui/sonner.jsx";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const Login = () => {
   // To get All  data
@@ -18,8 +20,11 @@ const Login = () => {
     role: "",
   });
 
+  // For Loading
+  const { loading } = useSelector((store) => store.auth);
   // To navigate into other page
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // For storage of all data except file
   const changeEventHandler = (e) => {
@@ -32,6 +37,7 @@ const Login = () => {
 
     // For API Call Method
     try {
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
         headers: {
           "Content-Type": "application/json",
@@ -46,6 +52,8 @@ const Login = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -128,12 +136,19 @@ const Login = () => {
             </div>
 
             {/* Login Button */}
-            <Button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-lg shadow-md hover:bg-purple-600 focus:ring-2 focus:ring-blue-300 focus:outline-none text-lg font-bold transition"
-            >
-              Login
-            </Button>
+            {loading ? (
+              <Button className="w-full bg-blue-500 text-white py-3 rounded-lg shadow-md">
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Please Wait a moment...
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className="w-full bg-blue-500 text-white py-3 rounded-lg shadow-md hover:bg-purple-600 focus:ring-2 focus:ring-blue-300 focus:outline-none text-lg font-bold transition"
+              >
+                Login
+              </Button>
+            )}
 
             {/* Divider */}
             <div className="flex items-center my-6">
