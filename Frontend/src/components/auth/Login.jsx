@@ -39,8 +39,6 @@ const Login = () => {
         withCredentials: true,
       });
 
-      // For messages
-      console.log(res.data.success);
       if (res.data.success) {
         navigate("/");
         toast.success(res.data.message);
@@ -52,86 +50,122 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <>
       <Navbar />
-      <div className="flex items-center justify-center max-w-7xl mx-auto">
-        <form
-          onSubmit={submitHandler}
-          className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
-        >
-          <h1 className="font-bold text-xl mb-5 text-center">Login </h1>
+      <div className="min-h-[95vh] bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center">
+        <div className="bg-white w-full max-w-md rounded-lg shadow-xl p-8 transform hover:scale-105 transition-all">
+          <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
+            Welcome Back!
+          </h1>
+          <p className="text-center text-gray-600 mb-8 italic">
+            Please login to your account to continue.
+          </p>
 
-          {/* for email */}
-          <div className="my-2 ">
-            <Label>Email ID</Label>
-            <Input
-              type="email"
-              value={input.email}
-              name="email"
-              onChange={changeEventHandler}
-              placeholder="Email ID"
-            />
-          </div>
+          <form onSubmit={submitHandler}>
+            {/* Email Field */}
+            <div className="mb-6 min-h-[5vh]">
+              <Label className="block text-lg font-bold text-gray-700 mb-2">
+                Email ID
+              </Label>
+              <Input
+                type="email"
+                value={input.email}
+                name="email"
+                onChange={changeEventHandler}
+                placeholder="Enter your email"
+                className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
 
-          {/* for password */}
-          <div className="my-2 ">
-            <Label>Password</Label>
-            <Input
-              type="password"
-              value={input.password}
-              name="password"
-              onChange={changeEventHandler}
-              placeholder="Password"
-            />
-          </div>
+            {/* Password Field */}
+            <div className="mb-6">
+              <Label className="block text-lg font-bold text-gray-700 mb-2">
+                Password
+              </Label>
+              <Input
+                type="password"
+                value={input.password}
+                name="password"
+                onChange={changeEventHandler}
+                placeholder="Enter your password"
+                className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
 
-          {/* To choose Student or Recruiter */}
-          <div className="flex items-center justify-between">
-            {/* For Student */}
-            <RadioGroup className="flex items-center gap-4 my-5 font-bold">
-              <div className="flex items-center space-x-2 text-md italic">
-                <Input
-                  type="radio"
-                  name="role"
-                  value="student"
-                  checked={input.role === "student"}
-                  onChange={changeEventHandler}
-                  className="cursor-pointer"
-                />
-                <Label htmlFor="r1">Student</Label>
-              </div>
+            {/* Role Selection */}
+            <div className="mb-6">
+              <Label className="block text-lg font-bold text-gray-700 mb-2">
+                Select Your Role
+              </Label>
+              <RadioGroup className="flex justify-around">
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="radio"
+                    name="role"
+                    value="student"
+                    checked={input.role === "student"}
+                    onChange={changeEventHandler}
+                    className="cursor-pointer focus:ring-blue-500"
+                  />
+                  <Label className="text-gray-700 font-medium italic text-md">
+                    Student
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="radio"
+                    name="role"
+                    value="recruiter"
+                    checked={input.role === "recruiter"}
+                    onChange={changeEventHandler}
+                    className="cursor-pointer focus:ring-blue-500"
+                  />
+                  <Label className="text-gray-700 font-medium italic text-md">
+                    Recruiter
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
 
-              {/* For Recruiter */}
-              <div className="flex items-center space-x-2 text-md italic">
-                <Input
-                  type="radio"
-                  name="role"
-                  value="recruiter"
-                  checked={input.role === "recruiter"}
-                  onChange={changeEventHandler}
-                  className="cursor-pointer"
-                />
-                <Label htmlFor="r2">Recruiter</Label>
-              </div>
-            </RadioGroup>
-          </div>
+            {/* Login Button */}
+            <Button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-3 rounded-lg shadow-md hover:bg-purple-600 focus:ring-2 focus:ring-blue-300 focus:outline-none text-lg font-bold transition"
+            >
+              Login
+            </Button>
 
-          {/* For Sign Up button */}
-          <Button
-            type="submit"
-            className="w-full my-4 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 transition font-bold text-xl "
-          >
-            Login
-          </Button>
-          <span className="text-center mt-4 ">
-            Do not have an account?{" "}
-            <Link to="/signup" className="text-purple-600 hover:underline">
-              Sign Up
-            </Link>
-          </span>
-        </form>
+            {/* Divider */}
+            <div className="flex items-center my-6">
+              <div className="flex-grow h-px bg-gray-300"></div>
+              <span className="px-4 text-gray-500 text-sm">OR</span>
+              <div className="flex-grow h-px bg-gray-300"></div>
+            </div>
+
+            {/* Social Login */}
+            <div className="grid grid-cols-2 gap-4">
+              <Button className="flex items-center justify-center bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition text-lg ">
+                <i className="fab fa-google mr-2"></i> Google
+              </Button>
+              <Button className="flex items-center justify-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition text-lg">
+                <i className="fab fa-facebook-f mr-2"></i> Facebook
+              </Button>
+            </div>
+
+            {/* Footer */}
+            <p className="text-center mt-6 text-gray-600">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="text-blue-500 hover:underline hover:text-lg transition-all"
+              >
+                Sign Up
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

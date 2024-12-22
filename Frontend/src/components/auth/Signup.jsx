@@ -1,8 +1,11 @@
+//
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "../../utils/constant";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
 import Navbar from "../shared/Navbar";
 
 const Signup = () => {
@@ -91,14 +94,14 @@ const Signup = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
       <Navbar />
       <div className="flex items-center justify-center max-w-7xl mx-auto h-full py-10">
         <form
           onSubmit={submitHandler}
-          className="w-full md:w-1/2 bg-white shadow-2xl border border-gray-300 rounded-lg p-8 space-y-6"
+          className="w-full md:w-1/2 bg-white shadow-lg rounded-xl p-8 space-y-6 transform transition-all hover:scale-105 hover:shadow-2xl duration-300"
         >
-          <h1 className="text-3xl font-semibold text-center text-gray-800">
+          <h1 className="text-4xl font-semibold text-center text-gray-800 mb-4">
             Create Your Account
           </h1>
 
@@ -113,7 +116,7 @@ const Signup = () => {
               value={input.fullname}
               onChange={changeEventHandler}
               placeholder="Enter your full name"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all"
             />
           </div>
 
@@ -128,7 +131,7 @@ const Signup = () => {
               value={input.email}
               onChange={changeEventHandler}
               placeholder="Enter your email address"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all"
             />
           </div>
 
@@ -143,7 +146,7 @@ const Signup = () => {
               value={input.phoneNumber}
               onChange={changeEventHandler}
               placeholder="Enter your phone number"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all"
             />
           </div>
 
@@ -158,7 +161,7 @@ const Signup = () => {
               value={input.password}
               onChange={changeEventHandler}
               placeholder="Create a strong password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 transition-all"
             />
           </div>
 
@@ -198,24 +201,11 @@ const Signup = () => {
           </div>
 
           {/* Profile Photo Upload */}
-          {/* <div className="mb-5">
-            <label className="block text-lg font-bold text-gray-700">
-              Upload Profile Photo
-            </label>
-            <input
-              accept="image/*"
-              type="file"
-              onChange={changeFileHandler}
-              className="cursor-pointer w-full py-3 px-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
-            />
-          </div> */}
-
           <div className="mb-5">
             <label className="block text-lg font-semibold text-gray-700">
               Upload Profile Photo
             </label>
             <div className="mt-2 flex justify-center items-center w-full h-40 border-4 border-dashed border-gray-300 rounded-lg group hover:border-purple-600 transition-all">
-              {/* File Upload Area */}
               <label
                 htmlFor="file-upload"
                 className="cursor-pointer w-full h-full flex flex-col justify-center items-center space-y-3 text-gray-600 group-hover:text-purple-600 transition-all"
@@ -257,12 +247,29 @@ const Signup = () => {
             Register Now
           </button>
 
+          {/* Divider */}
+          <div className="flex items-center my-6">
+            <div className="flex-grow h-px bg-gray-300"></div>
+            <span className="px-4 text-gray-500 text-sm">OR</span>
+            <div className="flex-grow h-px bg-gray-300"></div>
+          </div>
+
+          {/* Social Login */}
+          <div className="grid grid-cols-2 gap-4">
+            <Button className="flex items-center justify-center bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition text-lg ">
+              <i className="fab fa-google mr-2"></i> Google
+            </Button>
+            <Button className="flex items-center justify-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition text-lg">
+              <i className="fab fa-facebook-f mr-2"></i> Facebook
+            </Button>
+          </div>
+
           {/* Redirect to Login */}
           <p className=" text-center mt-4">
             Already have an account?{" "}
             <a
               href="/login"
-              className="text-purple-600 font-medium hover:underline"
+              className="text-purple-600 font-medium hover:underline hover:text-lg transition-all"
             >
               Login
             </a>
