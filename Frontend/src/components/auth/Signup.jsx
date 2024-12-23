@@ -1,5 +1,3 @@
-//
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,6 +8,8 @@ import Navbar from "../shared/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../redux/authSlice";
 import { Loader2 } from "lucide-react";
+// import { useGoogleLogin } from "@react-oauth/google";
+// import { useFacebookLogin } from "@react-oauth/google";
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -258,21 +258,21 @@ const Signup = () => {
           )}
 
           {/* Divider */}
-          <div className="flex items-center my-6">
+          {/* <div className="flex items-center my-6">
             <div className="flex-grow h-px bg-gray-300"></div>
             <span className="px-4 text-gray-500 text-sm">OR</span>
             <div className="flex-grow h-px bg-gray-300"></div>
-          </div>
+          </div> */}
 
           {/* Social Login */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* <div className="grid grid-cols-2 gap-4">
             <Button className="flex items-center justify-center bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition text-lg ">
               <i className="fab fa-google mr-2"></i> Google
             </Button>
             <Button className="flex items-center justify-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition text-lg">
               <i className="fab fa-facebook-f mr-2"></i> Facebook
             </Button>
-          </div>
+          </div> */}
 
           {/* Redirect to Login */}
           <p className=" text-center mt-4">
