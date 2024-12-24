@@ -38,14 +38,6 @@ const LatestJobCards = () => {
           30 LPA
         </Badge>
       </div>
-
-      {/* Footer */}
-      <div className="mt-6 flex justify-between items-center">
-        <button className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-full hover:opacity-90 transition-opacity duration-300">
-          Apply Now
-        </button>
-        <span className="text-sm text-gray-500">Posted 2 days ago</span>
-      </div>
     </div>
   );
 };
