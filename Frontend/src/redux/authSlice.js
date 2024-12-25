@@ -6,9 +6,11 @@ const authSlice = createSlice({
   initialState: {
     // To show loading
     loading: false,
+
     // to show user status
     user: null,
   },
+
   reducers: {
     //There are actions
     setLoading: (state, action) => {
@@ -23,4 +25,5 @@ const authSlice = createSlice({
 });
 
 export const { setLoading, setUser } = authSlice.actions;
+
 export default authSlice.reducer;
