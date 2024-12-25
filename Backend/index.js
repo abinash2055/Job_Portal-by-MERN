@@ -20,17 +20,24 @@ app.use(cookieParser());
 
 // For URL
 const corsOptions = {
-  origin: "http://localhost:5173", // Allow only this origin
-  methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
-  credentials: true, // Allow credentials (cookies, etc.)
+  // Allow only this origin
+  origin: "http://localhost:5173",
+
+  // Specify allowed methods
+  methods: ["GET", "POST", "PUT", "DELETE"],
+
+  // Specify allowed headers
+  allowedHeaders: ["Content-Type", "Authorization"],
+
+  // Allow credentials (cookies, etc.)
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3000;
 
-// For API
+// For API's
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);

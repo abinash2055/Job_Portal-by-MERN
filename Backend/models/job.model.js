@@ -54,7 +54,7 @@ const jobSchema = new mongoose.Schema(
     // Relation from Company and User
     created_by: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Company",
+      ref: "User",
       required: true,
     },
 

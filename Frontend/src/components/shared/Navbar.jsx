@@ -1,18 +1,40 @@
 import React, { useState } from "react";
 import "./LightDarkMode.css";
-
 import logo from "../images/WebsiteLogo.jpg";
 import { Button } from "../ui/button";
-
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Avatar, AvatarImage } from "../ui/avatar";
-
 import { LogOut, User2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { USER_API_END_POINT } from "../../utils/constant";
+import { setUser } from "../../redux/authSlice";
 
 const Navbar = () => {
   // For Login and Register
-  const user = false;
+  const { user } = useSelector((store) => store.auth);
+
+  // For Logout
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${USER_API_END_POINT}/logout`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        dispatch(setUser(null));
+        navigate("/");
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <div className="navbar bg-gradient-to-r from-blue-400 via-purple-300 to-pink-300">
@@ -41,14 +63,11 @@ const Navbar = () => {
           </ul>
 
           {/* User Login/Logout Section */}
-          {user ? (
+          {!user ? (
             <Popover>
               <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="User Avatar"
-                  />
+                  <AvatarImage src={user?.profile?.profilePhoto} />
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-80">
@@ -56,14 +75,14 @@ const Navbar = () => {
                 <div className="flex items-center gap-4">
                   <Avatar>
                     <AvatarImage
-                      src="https://github.com/shadcn.png"
+                      src={user?.profile?.profilePhoto}
                       alt="User Avatar"
                     />
                   </Avatar>
                   <div>
-                    <h4 className="font-medium">Pandey Web Developer</h4>
+                    <h4 className="font-medium">{user?.fullname}</h4>
                     <p className="text-sm text-muted-foreground">
-                      I am learning MERN as a practice
+                      {user?.profile?.bio}
                     </p>
                   </div>
                 </div>
@@ -73,12 +92,15 @@ const Navbar = () => {
                   <div className="flex items-center gap-2">
                     <User2 className="text-blue-800" />
                     <button className="text-blue-800 hover:underline">
-                      View Profile
+                      <Link to="/profile">View Profile</Link>
                     </button>
                   </div>
                   <div className="flex items-center gap-2">
                     <LogOut className="text-red-700" />
-                    <button className="text-red-700 hover:underline">
+                    <button
+                      className="text-red-700 hover:underline"
+                      onClick={logoutHandler}
+                    >
                       Logout
                     </button>
                   </div>
@@ -90,6 +112,7 @@ const Navbar = () => {
               {/* for Login Page  */}
               <Link to="/login">
                 <Button
+                  onClick={logoutHandler}
                   variant="outline"
                   className="text-black text-xl border-gray-400 hover:border-black hover:text-white hover:bg-black transition duration-300 px-6 py-2 rounded-lg font-bold"
                 >

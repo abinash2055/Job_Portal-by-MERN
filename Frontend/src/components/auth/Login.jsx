@@ -46,6 +46,8 @@ const Login = () => {
       });
 
       if (res.data.success) {
+        // To set User
+        dispatch(setUser(res.data.user));
         navigate("/");
         toast.success(res.data.message);
       }
