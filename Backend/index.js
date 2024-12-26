@@ -21,7 +21,7 @@ app.use(cookieParser());
 // For URL
 const corsOptions = {
   // Allow only this origin
-  origin: "http://localhost:5173",
+  origin: "*",
 
   // Specify allowed methods
   methods: ["GET", "POST", "PUT", "DELETE"],
