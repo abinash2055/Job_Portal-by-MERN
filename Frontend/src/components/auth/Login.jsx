@@ -36,14 +36,26 @@ const Login = () => {
         },
         withCredentials: true,
       });
-      if (res.data.success) {
-        dispatch(setUser(res.data.user));
-        navigate("/");
-        toast.success(res.data.message);
+
+      // Check if the response exists and has the expected structure
+      if (res && res.data) {
+        if (res.data.success) {
+          dispatch(setUser(res.data.user));
+          navigate("/");
+          toast.success(res.data.message);
+        } else {
+          toast.error(res.data.message);
+        }
+      } else {
+        toast.error("Unexpected response format.");
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
+      console.error(error);
+      if (error.response) {
+        toast.error(error.response.data.message || "An error occurred.");
+      } else {
+        toast.error("Network or server error.");
+      }
     } finally {
       dispatch(setLoading(false));
     }
@@ -182,3 +194,42 @@ const Login = () => {
 };
 
 export default Login;
+
+// import React, { useEffect, useState } from "react";
+// import { Button } from "../ui/button";
+// import Navbar from "../shared/Navbar";
+// import { useNavigate } from "react-router-dom";
+// import { useSelector } from "react-redux";
+
+// const Dashboard = () => {
+//   const { user } = useSelector((store) => store.auth);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     if (!user) {
+//       navigate("/login");
+//     }
+//   }, [user, navigate]);
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-yellow-400 via-red-500 to-pink-600">
+//       <Navbar />
+//       <div className="flex flex-1 justify-center items-center">
+//         <div className="text-center py-8 px-12 bg-white rounded-xl shadow-lg">
+//           <h1 className="text-4xl font-bold text-gray-800">
+//             Welcome {user?.name}
+//           </h1>
+//           <p className="mt-4 text-lg text-gray-600">This is your dashboard</p>
+//           <Button
+//             className="mt-6 py-4 px-6 bg-green-500 hover:bg-green-600 text-white rounded-lg transform hover:scale-105 transition-all duration-300"
+//             onClick={() => navigate("/profile")}
+//           >
+//             Go to Profile
+//           </Button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Dashboard;

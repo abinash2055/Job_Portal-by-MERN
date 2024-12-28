@@ -73,85 +73,50 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
       setLoading(false);
     }
     setOpen(false);
-    console.log(input);
   };
 
   return (
     <div>
       <Dialog open={open}>
         <DialogContent
-          className="sm:max-w-[425px]"
+          className="sm:max-w-[500px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-xl shadow-2xl p-8 transform transition-all duration-700 ease-in-out scale-105"
           onInteractOutside={() => setOpen(false)}
         >
           <DialogHeader>
-            <DialogTitle>Update Profile</DialogTitle>
+            <DialogTitle className="text-3xl font-bold text-white">
+              Update Profile
+            </DialogTitle>
           </DialogHeader>
           <form onSubmit={submitHandler}>
-            <div className="grid gap-4 py-4">
+            <div className="grid gap-6 py-6">
+              {[
+                { label: "Name", id: "name", value: input.fullname },
+                { label: "Email", id: "email", value: input.email },
+                { label: "Number", id: "number", value: input.phoneNumber },
+                { label: "Bio", id: "bio", value: input.bio },
+                { label: "Skills", id: "skills", value: input.skills },
+              ].map(({ label, id, value }) => (
+                <div key={id} className="grid grid-cols-4 items-center gap-4">
+                  <Label
+                    htmlFor={id}
+                    className="text-right text-white font-medium"
+                  >
+                    {label}
+                  </Label>
+                  <Input
+                    id={id}
+                    name={id}
+                    value={value}
+                    onChange={changeEventHandler}
+                    className="col-span-3 rounded-md bg-white text-gray-700 p-3 focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              ))}
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  value={input.fullname}
-                  onChange={changeEventHandler}
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="email" className="text-right">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={input.email}
-                  onChange={changeEventHandler}
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="number" className="text-right">
-                  Number
-                </Label>
-                <Input
-                  id="number"
-                  name="number"
-                  value={input.phoneNumber}
-                  onChange={changeEventHandler}
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="bio" className="text-right">
-                  Bio
-                </Label>
-                <Input
-                  id="bio"
-                  name="bio"
-                  value={input.bio}
-                  onChange={changeEventHandler}
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="skills" className="text-right">
-                  Skills
-                </Label>
-                <Input
-                  id="skills"
-                  name="skills"
-                  value={input.skills}
-                  onChange={changeEventHandler}
-                  className="col-span-3"
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="file" className="text-right">
+                <Label
+                  htmlFor="file"
+                  className="text-right text-white font-medium"
+                >
                   Resume
                 </Label>
                 <Input
@@ -160,19 +125,25 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                   type="file"
                   accept="application/pdf"
                   onChange={fileChangeHandler}
-                  className="col-span-3"
+                  className="col-span-3 text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-400 rounded-md file:px-4 file:py-2 file:bg-indigo-600 file:text-white"
                 />
               </div>
             </div>
             <DialogFooter>
               {loading ? (
-                <Button className="w-full my-4">
-                  {" "}
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
+                <Button
+                  disabled
+                  className="w-full bg-gray-400 text-gray-700 py-3 rounded-md flex items-center justify-center space-x-2"
+                >
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <span>Updating...</span>
                 </Button>
               ) : (
-                <Button type="submit" className="w-full my-4">
-                  Update
+                <Button
+                  type="submit"
+                  className="w-full bg-blue-600 text-white hover:bg-blue-700 py-3 rounded-md transition duration-200 ease-in-out transform hover:scale-105"
+                >
+                  Update Profile
                 </Button>
               )}
             </DialogFooter>
@@ -184,3 +155,5 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
 };
 
 export default UpdateProfileDialog;
+
+// Done styles

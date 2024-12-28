@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-center md:text-left mb-6 md:mb-0">
             <h2 className="text-3xl font-bold tracking-wide text-white">
-              Personal Job Hunt
+              Personal Signature Job Hunt
             </h2>
             <p className="mt-2 text-sm">
               © 2024 Your Company. All rights reserved.

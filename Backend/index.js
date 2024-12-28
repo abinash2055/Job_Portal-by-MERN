@@ -18,10 +18,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// For URL
 const corsOptions = {
   // Allow only this origin
-  origin: "*",
+  origin: "http://localhost:5173",
 
   // Specify allowed methods
   methods: ["GET", "POST", "PUT", "DELETE"],
