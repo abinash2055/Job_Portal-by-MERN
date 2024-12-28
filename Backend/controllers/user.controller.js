@@ -62,7 +62,6 @@ export const register = async (req, res) => {
 // For Login Process
 export const login = async (req, res) => {
   try {
-    console.log("In in Login");
     const { email, password, role } = req.body;
 
     if (!email || !password || !role) {

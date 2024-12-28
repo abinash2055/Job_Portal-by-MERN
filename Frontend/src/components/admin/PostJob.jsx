@@ -18,8 +18,6 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
-const companyArray = [];
-
 const PostJob = () => {
   const [input, setInput] = useState({
     title: "",
@@ -69,14 +67,14 @@ const PostJob = () => {
   };
 
   return (
-    <div>
+    <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 min-h-screen">
       <Navbar />
-      <div className="flex items-center justify-center w-screen my-5">
+      <div className="flex items-center justify-center w-screen my-5 px-4">
         <form
           onSubmit={submitHandler}
-          className="p-8 max-w-4xl border border-gray-200 shadow-lg rounded-md"
+          className="p-10 max-w-4xl bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105"
         >
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-6 mb-6">
             <div>
               <Label>Title</Label>
               <Input
@@ -84,7 +82,7 @@ const PostJob = () => {
                 name="title"
                 value={input.title}
                 onChange={changeEventHandler}
-                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                className="input-field"
               />
             </div>
             <div>
@@ -94,7 +92,7 @@ const PostJob = () => {
                 name="description"
                 value={input.description}
                 onChange={changeEventHandler}
-                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                className="input-field"
               />
             </div>
             <div>
@@ -104,7 +102,7 @@ const PostJob = () => {
                 name="requirements"
                 value={input.requirements}
                 onChange={changeEventHandler}
-                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                className="input-field"
               />
             </div>
             <div>
@@ -114,7 +112,7 @@ const PostJob = () => {
                 name="salary"
                 value={input.salary}
                 onChange={changeEventHandler}
-                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                className="input-field"
               />
             </div>
             <div>
@@ -124,7 +122,7 @@ const PostJob = () => {
                 name="location"
                 value={input.location}
                 onChange={changeEventHandler}
-                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                className="input-field"
               />
             </div>
             <div>
@@ -134,7 +132,7 @@ const PostJob = () => {
                 name="jobType"
                 value={input.jobType}
                 onChange={changeEventHandler}
-                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                className="input-field"
               />
             </div>
             <div>
@@ -144,29 +142,32 @@ const PostJob = () => {
                 name="experience"
                 value={input.experience}
                 onChange={changeEventHandler}
-                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                className="input-field"
               />
             </div>
             <div>
-              <Label>No of Postion</Label>
+              <Label>No of Positions</Label>
               <Input
                 type="number"
                 name="position"
                 value={input.position}
                 onChange={changeEventHandler}
-                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
+                className="input-field"
               />
             </div>
             {companies.length > 0 && (
               <Select onValueChange={selectChangeHandler}>
-                <SelectTrigger className="w-[180px]">
+                <SelectTrigger className="w-[180px] input-field">
                   <SelectValue placeholder="Select a Company" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     {companies.map((company) => {
                       return (
-                        <SelectItem value={company?.name?.toLowerCase()}>
+                        <SelectItem
+                          key={company._id}
+                          value={company?.name?.toLowerCase()}
+                        >
                           {company.name}
                         </SelectItem>
                       );
@@ -176,19 +177,23 @@ const PostJob = () => {
               </Select>
             )}
           </div>
+
           {loading ? (
-            <Button className="w-full my-4">
-              {" "}
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
+            <Button className="w-full my-4 bg-indigo-600 text-white hover:bg-indigo-700 transition-all">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
             </Button>
           ) : (
-            <Button type="submit" className="w-full my-4">
+            <Button
+              type="submit"
+              className="w-full my-4 bg-indigo-600 text-white hover:bg-indigo-700 transition-all"
+            >
               Post New Job
             </Button>
           )}
+
           {companies.length === 0 && (
-            <p className="text-xs text-red-600 font-bold text-center my-3">
-              *Please register a company first, before posting a jobs
+            <p className="text-xs text-red-600 font-bold text-center my-3 animate-pulse">
+              *Please register a company first, before posting a job
             </p>
           )}
         </form>
